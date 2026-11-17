@@ -1,7 +1,22 @@
 [gd_scene format=3 uid="uid://ctxnm1j4iwp46"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_g7g4h"]
+[ext_resource type="Script" uid="uid://co6ub37ujgp7h" path="res://scripts/camera_2d.gd" id="2_j8ivh"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_hss5h"]
 
 [node name="TestScene" type="Node2D" unique_id=1878217991]
 
+[node name="Background" type="MeshInstance2D" parent="." unique_id=690905591]
+modulate = Color(0.47397572, 0.47397572, 0.47397572, 1)
+position = Vector2(317, 181.00002)
+scale = Vector2(576.80524, 314.8416)
+mesh = SubResource("QuadMesh_hss5h")
+
 [node name="Player" parent="." unique_id=1043669616 instance=ExtResource("1_g7g4h")]
+position = Vector2(248, 133)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=868219299 node_paths=PackedStringArray("player")]
+script = ExtResource("2_j8ivh")
+player = NodePath("../Player")
+speed = 8.0
