@@ -63,6 +63,8 @@ func _physics_process(delta: float) -> void:
 		tween.tween_callback(after_image.queue_free)
 		
 		get_tree().current_scene.add_child(after_image)
+		
+		_dash_animation()
 	
 	if dash_time > 0:
 		velocity = dash_direction * dash_speed
@@ -74,16 +76,26 @@ func _physics_process(delta: float) -> void:
 				_on_light_manager_player_in_dark()
 			velocity = speed * move_dir.normalized()
 			dash_cooldown_time = dash_cooldown_length
+	else:
+		_turn_animation(false)
 	
 	if dash_cooldown_time > 0:
 		dash_cooldown_time -= delta
 	
 	move_and_slide()
 	
-	_turn_animation(false)
-	
 	if move_dir != Vector2.ZERO:
 		old_move_dir = move_dir
+
+func _dash_animation():
+	if player_sprite.animation.contains("right"):
+		player_sprite.play("right_dash")
+	if player_sprite.animation.contains("left"):
+		player_sprite.play("left_dash")
+	if player_sprite.animation.contains("down"):
+		player_sprite.play("down_dash")
+	if player_sprite.animation.contains("up"):
+		player_sprite.play("up_dash")
 
 func _turn_animation(turn: bool):
 	if velocity != Vector2.ZERO:
