@@ -322,7 +322,7 @@ scale = Vector2(1473.7275, 1050.9299)
 mesh = SubResource("QuadMesh_hss5h")
 
 [node name="Player" parent="." unique_id=1043669616 instance=ExtResource("1_g7g4h")]
-z_index = 1
+z_index = 2
 position = Vector2(248, 133)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=868219299 node_paths=PackedStringArray("player")]
@@ -358,4 +358,4 @@ position = Vector2(38, 222)
 position = Vector2(301, 247)
 
 [node name="Lantern3" parent="." unique_id=634575434 instance=ExtResource("6_3qnke")]
-position = Vector2(-17, 235)
+position = Vector2(-76, 298)
