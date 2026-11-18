@@ -34,13 +34,13 @@ func _turn_animation(turn: bool):
 		if abs(velocity.x) > abs(velocity.y):
 			if velocity.x > 0:
 				if player_sprite.animation.contains("left"):
-					player_sprite.play("turn")
-				elif player_sprite.animation != "turn" or turn:
+					player_sprite.play("turn_right")
+				elif !player_sprite.animation.contains("turn")  or turn:
 					player_sprite.play("right_walk")
 			else:
 				if player_sprite.animation.contains("right"):
-					player_sprite.play("turn")
-				elif player_sprite.animation != "turn" or turn:
+					player_sprite.play("turn_left")
+				elif !player_sprite.animation.contains("turn") or turn:
 					player_sprite.play("left_walk")
 		else:
 			if velocity.y > 0:
@@ -60,7 +60,7 @@ func _turn_animation(turn: bool):
 
 func _on_player_sprite_animation_looped() -> void:
 	var finished_animation = player_sprite.animation
-	if finished_animation == "turn":
+	if finished_animation.contains("turn"):
 		_turn_animation(true)
 
 #func _on_hitbox_body_entered(body: Node2D) -> void:

@@ -1,17 +1,326 @@
 [gd_scene format=3 uid="uid://ctxnm1j4iwp46"]
 
+[ext_resource type="Script" uid="uid://dd847kv7nalmk" path="res://scripts/light_manager.gd" id="1_7ddre"]
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_g7g4h"]
 [ext_resource type="Script" uid="uid://co6ub37ujgp7h" path="res://scripts/camera_2d.gd" id="2_j8ivh"]
+[ext_resource type="Texture2D" uid="uid://d0348vvxsec4n" path="res://textures/box.png" id="3_nd71p"]
+[ext_resource type="PackedScene" uid="uid://c65cih18k7ukf" path="res://scenes/box.tscn" id="5_qjeyg"]
+[ext_resource type="PackedScene" uid="uid://da20mm4sgn47y" path="res://scenes/lantern.tscn" id="6_3qnke"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_hss5h"]
 
 [node name="TestScene" type="Node2D" unique_id=1878217991]
 
+[node name="LightManager" type="Node2D" parent="." unique_id=1999644385]
+unique_name_in_owner = true
+script = ExtResource("1_7ddre")
+
 [node name="Background" type="MeshInstance2D" parent="." unique_id=690905591]
-modulate = Color(0.47397572, 0.47397572, 0.47397572, 1)
-position = Vector2(317, 181.00002)
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-137, 181)
 scale = Vector2(576.80524, 314.8416)
 mesh = SubResource("QuadMesh_hss5h")
+
+[node name="BoxBackground" type="Sprite2D" parent="." unique_id=1215318450]
+self_modulate = Color(0.41568628, 0.41568628, 0.41568628, 1)
+position = Vector2(34, 309)
+scale = Vector2(2, 2)
+texture = ExtResource("3_nd71p")
+
+[node name="Box2" type="Sprite2D" parent="BoxBackground" unique_id=1202786233]
+modulate = Color(0.41568628, 0.41568628, 0.41568628, 1)
+position = Vector2(31.5, 1)
+texture = ExtResource("3_nd71p")
+
+[node name="Box3" type="Sprite2D" parent="BoxBackground" unique_id=578176844]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(63, 2)
+texture = ExtResource("3_nd71p")
+
+[node name="Box4" type="Sprite2D" parent="BoxBackground" unique_id=72599859]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(94, 3)
+texture = ExtResource("3_nd71p")
+
+[node name="Box5" type="Sprite2D" parent="BoxBackground" unique_id=1382977361]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(122, 3)
+texture = ExtResource("3_nd71p")
+
+[node name="Box6" type="Sprite2D" parent="BoxBackground" unique_id=1356298929]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(154, 4)
+texture = ExtResource("3_nd71p")
+
+[node name="Box7" type="Sprite2D" parent="BoxBackground" unique_id=116901799]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(186.5, 3.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box8" type="Sprite2D" parent="BoxBackground" unique_id=1611101169]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(216, 4)
+texture = ExtResource("3_nd71p")
+
+[node name="Box9" type="Sprite2D" parent="BoxBackground" unique_id=3557617]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(245, 4.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box10" type="Sprite2D" parent="BoxBackground" unique_id=309343814]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(277, 5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box11" type="Sprite2D" parent="BoxBackground" unique_id=1164715541]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(-3, -25.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box12" type="Sprite2D" parent="BoxBackground" unique_id=836992573]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(28.5, -24.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box13" type="Sprite2D" parent="BoxBackground" unique_id=558475394]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(60, -23.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box14" type="Sprite2D" parent="BoxBackground" unique_id=1170387732]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(91, -22.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box15" type="Sprite2D" parent="BoxBackground" unique_id=1637452752]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(119, -22.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box16" type="Sprite2D" parent="BoxBackground" unique_id=747473568]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(151, -21.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box17" type="Sprite2D" parent="BoxBackground" unique_id=1366367040]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(183.5, -22)
+texture = ExtResource("3_nd71p")
+
+[node name="Box18" type="Sprite2D" parent="BoxBackground" unique_id=2010851754]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(213, -21.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box19" type="Sprite2D" parent="BoxBackground" unique_id=1684518456]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(242, -21)
+texture = ExtResource("3_nd71p")
+
+[node name="Box20" type="Sprite2D" parent="BoxBackground" unique_id=331108976]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(274, -20.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box21" type="Sprite2D" parent="BoxBackground" unique_id=274561613]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(-3, -54)
+texture = ExtResource("3_nd71p")
+
+[node name="Box22" type="Sprite2D" parent="BoxBackground" unique_id=1898384109]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(28.5, -53)
+texture = ExtResource("3_nd71p")
+
+[node name="Box23" type="Sprite2D" parent="BoxBackground" unique_id=2104240594]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(60, -52)
+texture = ExtResource("3_nd71p")
+
+[node name="Box24" type="Sprite2D" parent="BoxBackground" unique_id=999174509]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(91, -51)
+texture = ExtResource("3_nd71p")
+
+[node name="Box25" type="Sprite2D" parent="BoxBackground" unique_id=949560034]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(119, -51)
+texture = ExtResource("3_nd71p")
+
+[node name="Box26" type="Sprite2D" parent="BoxBackground" unique_id=1241024408]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(151, -50)
+texture = ExtResource("3_nd71p")
+
+[node name="Box27" type="Sprite2D" parent="BoxBackground" unique_id=850998400]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(183.5, -50.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box28" type="Sprite2D" parent="BoxBackground" unique_id=899386384]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(213, -50)
+texture = ExtResource("3_nd71p")
+
+[node name="Box29" type="Sprite2D" parent="BoxBackground" unique_id=997561606]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(242, -49.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box30" type="Sprite2D" parent="BoxBackground" unique_id=1071216115]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(274, -49)
+texture = ExtResource("3_nd71p")
+
+[node name="Box31" type="Sprite2D" parent="BoxBackground" unique_id=1677516477]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(-3, -81)
+texture = ExtResource("3_nd71p")
+
+[node name="Box32" type="Sprite2D" parent="BoxBackground" unique_id=1384320433]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(28.5, -80)
+texture = ExtResource("3_nd71p")
+
+[node name="Box33" type="Sprite2D" parent="BoxBackground" unique_id=1175495084]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(60, -79)
+texture = ExtResource("3_nd71p")
+
+[node name="Box34" type="Sprite2D" parent="BoxBackground" unique_id=1369214571]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(91, -78)
+texture = ExtResource("3_nd71p")
+
+[node name="Box35" type="Sprite2D" parent="BoxBackground" unique_id=1333826366]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(119, -78)
+texture = ExtResource("3_nd71p")
+
+[node name="Box36" type="Sprite2D" parent="BoxBackground" unique_id=2086371528]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(151, -77)
+texture = ExtResource("3_nd71p")
+
+[node name="Box37" type="Sprite2D" parent="BoxBackground" unique_id=2075560299]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(183.5, -77.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box38" type="Sprite2D" parent="BoxBackground" unique_id=825951425]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(213, -77)
+texture = ExtResource("3_nd71p")
+
+[node name="Box39" type="Sprite2D" parent="BoxBackground" unique_id=914093928]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(242, -76.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box40" type="Sprite2D" parent="BoxBackground" unique_id=1274888955]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(274, -76)
+texture = ExtResource("3_nd71p")
+
+[node name="Box41" type="Sprite2D" parent="BoxBackground" unique_id=317540562]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(-3.5, -109.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box42" type="Sprite2D" parent="BoxBackground" unique_id=639711646]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(28, -108.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box43" type="Sprite2D" parent="BoxBackground" unique_id=2011376173]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(59.5, -107.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box44" type="Sprite2D" parent="BoxBackground" unique_id=1691726514]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(90.5, -106.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box45" type="Sprite2D" parent="BoxBackground" unique_id=1505209563]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(118.5, -106.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box46" type="Sprite2D" parent="BoxBackground" unique_id=2038392703]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(150.5, -105.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box47" type="Sprite2D" parent="BoxBackground" unique_id=1371369475]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(183, -106)
+texture = ExtResource("3_nd71p")
+
+[node name="Box48" type="Sprite2D" parent="BoxBackground" unique_id=504699175]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(212.5, -105.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box49" type="Sprite2D" parent="BoxBackground" unique_id=506082013]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(241.5, -105)
+texture = ExtResource("3_nd71p")
+
+[node name="Box50" type="Sprite2D" parent="BoxBackground" unique_id=929919297]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(273.5, -104.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box51" type="Sprite2D" parent="BoxBackground" unique_id=1278341872]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(-3, -143)
+texture = ExtResource("3_nd71p")
+
+[node name="Box52" type="Sprite2D" parent="BoxBackground" unique_id=198918144]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(28.5, -142)
+texture = ExtResource("3_nd71p")
+
+[node name="Box53" type="Sprite2D" parent="BoxBackground" unique_id=503544338]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(60, -141)
+texture = ExtResource("3_nd71p")
+
+[node name="Box54" type="Sprite2D" parent="BoxBackground" unique_id=1609763955]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(91, -140)
+texture = ExtResource("3_nd71p")
+
+[node name="Box55" type="Sprite2D" parent="BoxBackground" unique_id=125045641]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(119, -140)
+texture = ExtResource("3_nd71p")
+
+[node name="Box56" type="Sprite2D" parent="BoxBackground" unique_id=1919561989]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(151, -139)
+texture = ExtResource("3_nd71p")
+
+[node name="Box57" type="Sprite2D" parent="BoxBackground" unique_id=1185183986]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(183.5, -139.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box58" type="Sprite2D" parent="BoxBackground" unique_id=488953214]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(213, -139)
+texture = ExtResource("3_nd71p")
+
+[node name="Box59" type="Sprite2D" parent="BoxBackground" unique_id=2007688094]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(242, -138.5)
+texture = ExtResource("3_nd71p")
+
+[node name="Box60" type="Sprite2D" parent="BoxBackground" unique_id=652995360]
+modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
+position = Vector2(274, -138)
+texture = ExtResource("3_nd71p")
 
 [node name="Player" parent="." unique_id=1043669616 instance=ExtResource("1_g7g4h")]
 position = Vector2(248, 133)
@@ -20,3 +329,15 @@ position = Vector2(248, 133)
 script = ExtResource("2_j8ivh")
 player = NodePath("../Player")
 speed = 8.0
+
+[node name="Box" parent="." unique_id=2055934493 instance=ExtResource("5_qjeyg")]
+position = Vector2(234, 276)
+
+[node name="Box2" parent="." unique_id=171029661 instance=ExtResource("5_qjeyg")]
+position = Vector2(81, 267)
+
+[node name="Lantern" parent="." unique_id=634575434 instance=ExtResource("6_3qnke")]
+position = Vector2(38, 222)
+
+[node name="Lantern2" parent="." unique_id=47171040 instance=ExtResource("6_3qnke")]
+position = Vector2(304, 297)
