@@ -9,7 +9,6 @@ polygon = PackedVector2Array(16, -16, 16, 16, -16, 16, -16, -16)
 size = Vector2(32, 32)
 
 [node name="Box" type="Sprite2D" unique_id=2055934493]
-modulate = Color(0.41568628, 0.41568628, 0.41568628, 1)
 light_mask = 2
 texture = ExtResource("1_3inec")
 

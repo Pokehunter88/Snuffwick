@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://ctxnm1j4iwp46"]
 
-[ext_resource type="Script" uid="uid://dd847kv7nalmk" path="res://scripts/light_manager.gd" id="1_7ddre"]
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_g7g4h"]
 [ext_resource type="Script" uid="uid://co6ub37ujgp7h" path="res://scripts/camera_2d.gd" id="2_j8ivh"]
 [ext_resource type="Texture2D" uid="uid://d0348vvxsec4n" path="res://textures/box.png" id="3_nd71p"]
@@ -11,15 +10,9 @@
 
 [node name="TestScene" type="Node2D" unique_id=1878217991]
 
-[node name="LightManager" type="Node2D" parent="." unique_id=1999644385]
-unique_name_in_owner = true
-script = ExtResource("1_7ddre")
-
-[node name="Background" type="MeshInstance2D" parent="." unique_id=690905591]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(-137, 181)
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=425299806]
 scale = Vector2(576.80524, 314.8416)
-mesh = SubResource("QuadMesh_hss5h")
+color = Color(0.5370113, 0.5370113, 0.5370112, 1)
 
 [node name="BoxBackground" type="Sprite2D" parent="." unique_id=1215318450]
 self_modulate = Color(0.41568628, 0.41568628, 0.41568628, 1)
@@ -322,7 +315,14 @@ modulate = Color(0.41725737, 0.4172574, 0.41725737, 1)
 position = Vector2(274, -138)
 texture = ExtResource("3_nd71p")
 
+[node name="Background" type="MeshInstance2D" parent="." unique_id=690905591]
+modulate = Color(0.059125952, 0.059125945, 0.059125938, 1)
+position = Vector2(178, 233)
+scale = Vector2(1473.7275, 1050.9299)
+mesh = SubResource("QuadMesh_hss5h")
+
 [node name="Player" parent="." unique_id=1043669616 instance=ExtResource("1_g7g4h")]
+z_index = 1
 position = Vector2(248, 133)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=868219299 node_paths=PackedStringArray("player")]
@@ -336,8 +336,26 @@ position = Vector2(234, 276)
 [node name="Box2" parent="." unique_id=171029661 instance=ExtResource("5_qjeyg")]
 position = Vector2(81, 267)
 
-[node name="Lantern" parent="." unique_id=634575434 instance=ExtResource("6_3qnke")]
+[node name="Box3" parent="." unique_id=86489648 instance=ExtResource("5_qjeyg")]
+position = Vector2(-38, 286)
+
+[node name="Box4" parent="." unique_id=365881105 instance=ExtResource("5_qjeyg")]
+position = Vector2(-10, 183)
+
+[node name="Box5" parent="." unique_id=1993559810 instance=ExtResource("5_qjeyg")]
+position = Vector2(96, 193)
+
+[node name="Box6" parent="." unique_id=567062089 instance=ExtResource("5_qjeyg")]
+position = Vector2(260, 219)
+
+[node name="Box7" parent="." unique_id=149580191 instance=ExtResource("5_qjeyg")]
+position = Vector2(342, 310)
+
+[node name="Lantern" parent="." unique_id=1627969925 instance=ExtResource("6_3qnke")]
 position = Vector2(38, 222)
 
-[node name="Lantern2" parent="." unique_id=47171040 instance=ExtResource("6_3qnke")]
-position = Vector2(304, 297)
+[node name="Lantern2" parent="." unique_id=1287519228 instance=ExtResource("6_3qnke")]
+position = Vector2(301, 247)
+
+[node name="Lantern3" parent="." unique_id=634575434 instance=ExtResource("6_3qnke")]
+position = Vector2(-17, 235)
