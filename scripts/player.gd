@@ -11,9 +11,9 @@ signal died
 @export var in_light_speed: float = 60.0
 @export var deaccelertion: float = 1500.0
 
-@export var dash_length: float = 0.15
+@export var dash_length: float = 0.15 * 1.5
 @export var dash_cooldown_length: float = 0.2
-@export var dash_speed: float = 500.0
+@export var dash_speed: float = 500.0 / 1.5
 @export var after_image_fade_speed: float = 1.0
 
 @onready var speed: float = in_dark_speed
