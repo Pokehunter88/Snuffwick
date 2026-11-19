@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cvm8thicnli8a"]
+
+[ext_resource type="Texture2D" uid="uid://cjivag0yxngar" path="res://textures/player.png" id="1_m4fl1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ci2qi"]
+atlas = ExtResource("1_m4fl1")
+region = Rect2(0, 0, 12, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bcvot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ci2qi")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Guard" type="AnimatedSprite2D" unique_id=407738538]
+self_modulate = Color(0, 1, 0.0666666, 1)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_bcvot")

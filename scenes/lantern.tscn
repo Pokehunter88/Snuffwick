@@ -20,7 +20,6 @@ texture = ExtResource("1_hhuhv")
 [node name="MainLight" type="PointLight2D" parent="." unique_id=1924854014 groups=["light_sources"]]
 position = Vector2(0, 2.5)
 scale = Vector2(0.5, 0.5)
-energy = 2.0
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_uxgnm")
 texture_scale = 5.03
@@ -28,7 +27,6 @@ script = ExtResource("2_uxgnm")
 radius = 120.0
 
 [node name="ObjectLight" type="PointLight2D" parent="MainLight" unique_id=761793948]
-energy = 2.0
 range_item_cull_mask = 2
 texture = SubResource("GradientTexture2D_uxgnm")
 texture_scale = 5.03

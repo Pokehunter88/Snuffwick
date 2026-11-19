@@ -13,7 +13,7 @@ signal died
 
 @export var dash_length: float = 0.15 * 1.5
 @export var dash_cooldown_length: float = 0.2
-@export var dash_speed: float = 500.0 / 1.5
+@export var dash_speed: float = 500.0
 @export var after_image_fade_speed: float = 1.0
 
 @onready var speed: float = in_dark_speed

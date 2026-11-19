@@ -6,6 +6,8 @@ signal player_in_dark
 
 @onready var light_sources := get_tree().get_nodes_in_group("light_sources")
 
+@export var interact_distance: float = 30.0
+
 var show_debug_lines := false
 
 var ray_start := []
@@ -24,14 +26,18 @@ func _process(delta: float) -> void:
 		var origin = light_source.global_position
 		var end = global_position
 		
-		if origin.distance_to(end) > light_source.radius:
+		if origin.distance_to(end) > light_source.radius or !light_source.enabled:
 			continue
+		
+		if origin.distance_to(end) < interact_distance:
+			_check_interact(light_source)
 		
 		var space_state = get_world_2d().direct_space_state
 		ray_start.append(origin)
 		
 		var query = PhysicsRayQueryParameters2D.create(origin, end)
 		query.hit_from_inside = true
+		query.collision_mask
 		
 		var result = space_state.intersect_ray(query)
 		if result:
@@ -56,7 +62,11 @@ func _process(delta: float) -> void:
 		queue_redraw()
 	if show_debug_lines:
 		queue_redraw()
-	
+
+func _check_interact(light_source: PointLight2D):
+	if Input.is_action_just_pressed("interact"):
+		light_source.disable()
+
 func _draw() -> void:
 	if show_debug_lines:
 		for i in ray_start.size():
