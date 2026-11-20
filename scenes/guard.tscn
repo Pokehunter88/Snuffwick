@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cvm8thicnli8a"]
 
 [ext_resource type="Texture2D" uid="uid://cjivag0yxngar" path="res://textures/player.png" id="1_m4fl1"]
+[ext_resource type="PackedScene" uid="uid://da20mm4sgn47y" path="res://scenes/lantern.tscn" id="2_ci2qi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ci2qi"]
 atlas = ExtResource("1_m4fl1")
@@ -17,7 +18,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_bcvot"]
+polygon = PackedVector2Array(5, 10, 5, 7, 6, 7, 6, 2, 5, 2, 5, 0, 4, 0, 4, -1, 5, -1, 5, -2, 6, -2, 6, -5, 5, -5, 5, -7, 4, -7, 4, -8, 3, -8, 3, -9, 2, -9, 2, -10, -2, -10, -2, -9, -3, -9, -3, -8, -4, -8, -4, -7, -5, -7, -5, -5, -6, -5, -6, -2, -5, -2, -5, -1, -4, -1, -4, 0, -5, 0, -5, 2, -6, 2, -6, 7, -5, 7, -5, 10, -1, 10, -1, 7, 1, 7, 1, 10)
+
 [node name="Guard" type="AnimatedSprite2D" unique_id=407738538]
-self_modulate = Color(0, 1, 0.0666666, 1)
+light_mask = 2
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bcvot")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=186154809]
+occluder = SubResource("OccluderPolygon2D_bcvot")
+
+[node name="Lantern" parent="." unique_id=634575434 instance=ExtResource("2_ci2qi")]
+position = Vector2(-16, -3)
+scale = Vector2(1, 1)

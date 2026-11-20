@@ -379,7 +379,7 @@ position = Vector2(38, 222)
 position = Vector2(-76, 298)
 
 [node name="Candle" parent="." unique_id=1483222600 instance=ExtResource("7_wtsjf")]
-position = Vector2(-153, 358)
+position = Vector2(54, 449)
 
 [node name="Guard" parent="." unique_id=407738538 instance=ExtResource("8_rnaij")]
-position = Vector2(370, 235)
+position = Vector2(385, 226)
