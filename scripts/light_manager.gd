@@ -37,7 +37,6 @@ func _process(delta: float) -> void:
 		
 		var query = PhysicsRayQueryParameters2D.create(origin, end)
 		query.hit_from_inside = true
-		query.collision_mask
 		
 		var result = space_state.intersect_ray(query)
 		if result:

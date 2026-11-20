@@ -382,4 +382,4 @@ position = Vector2(-76, 298)
 position = Vector2(54, 449)
 
 [node name="Guard" parent="." unique_id=407738538 instance=ExtResource("8_rnaij")]
-position = Vector2(385, 226)
+position = Vector2(335, 201)
