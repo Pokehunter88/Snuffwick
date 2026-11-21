@@ -1,17 +1,7 @@
 [gd_scene format=3 uid="uid://20vpceqnlgu4"]
 
 [ext_resource type="Texture2D" uid="uid://dnkeftt0rhyiu" path="res://textures/candle.png" id="1_ybelu"]
-[ext_resource type="Script" uid="uid://bu3uq44irrnew" path="res://scripts/light.gd" id="2_j6qyb"]
-
-[sub_resource type="Gradient" id="Gradient_j8ivh"]
-interpolation_mode = 2
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_uxgnm"]
-gradient = SubResource("Gradient_j8ivh")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.8000001, 0.20000002)
+[ext_resource type="PackedScene" uid="uid://c10jfkyblblf5" path="res://scenes/main_light.tscn" id="2_ybelu"]
 
 [node name="Candle" type="Sprite2D" unique_id=634575434]
 texture = ExtResource("1_ybelu")
@@ -19,15 +9,5 @@ hframes = 2
 region_enabled = true
 region_rect = Rect2(0, 0, 30, 22)
 
-[node name="MainLight" type="PointLight2D" parent="." unique_id=1924854014 groups=["light_sources"]]
-position = Vector2(0, 2.5)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_uxgnm")
-texture_scale = 5.03
-script = ExtResource("2_j6qyb")
-radius = 120.0
-
-[node name="ObjectLight" type="PointLight2D" parent="MainLight" unique_id=761793948]
-range_item_cull_mask = 2
-texture = SubResource("GradientTexture2D_uxgnm")
-texture_scale = 5.03
+[node name="MainLight" parent="." unique_id=132259717 instance=ExtResource("2_ybelu")]
+position = Vector2(0, -7)

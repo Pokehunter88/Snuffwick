@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cwgeyiw862xvq" path="res://textures/guard.png" id="1_ci2qi"]
 [ext_resource type="PackedScene" uid="uid://da20mm4sgn47y" path="res://scenes/lantern.tscn" id="2_ci2qi"]
 [ext_resource type="Script" uid="uid://b4wcqmyi3b0ub" path="res://scripts/guard.gd" id="2_k0dx2"]
-[ext_resource type="Script" uid="uid://bu3uq44irrnew" path="res://scripts/light.gd" id="4_ygo2t"]
+[ext_resource type="PackedScene" uid="uid://c10jfkyblblf5" path="res://scenes/main_light.tscn" id="4_gn8tx"]
 [ext_resource type="Texture2D" uid="uid://qgrel2rlks23" path="res://textures/stick_lantern.png" id="5_gn8tx"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k0dx2"]
@@ -46,8 +46,8 @@ atlas = SubResource("CompressedTexture2D_k0dx2")
 region = Rect2(112, 0, 16, 22)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nflhy"]
-atlas = SubResource("CompressedTexture2D_k0dx2")
-region = Rect2(256, 0, 16, 22)
+atlas = ExtResource("1_ci2qi")
+region = Rect2(608, 0, 38, 22)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k0dx2"]
 atlas = ExtResource("1_ci2qi")
@@ -134,16 +134,6 @@ animations = [{
 radius = 8.0
 height = 21.0
 
-[sub_resource type="Gradient" id="Gradient_j8ivh"]
-interpolation_mode = 2
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_gn8tx"]
-gradient = SubResource("Gradient_j8ivh")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.8000001, 0.20000002)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_su24k"]
 atlas = ExtResource("5_gn8tx")
 region = Rect2(646, 0, 38, 22)
@@ -184,7 +174,7 @@ animations = [{
 light_mask = 2
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bcvot")
-animation = &"down_idle"
+animation = &"right_idle"
 script = ExtResource("2_k0dx2")
 simplification_epsilon = 0.0
 
@@ -201,20 +191,10 @@ scale = Vector2(1, 1)
 position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_bcvot")
 
-[node name="MainLight" type="PointLight2D" parent="." unique_id=1501832094 groups=["light_sources"]]
-position = Vector2(15, 6.5)
+[node name="MainLight" parent="." unique_id=132259717 instance=ExtResource("4_gn8tx")]
+position = Vector2(15, 5.5)
 scale = Vector2(0.5, 0.5)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_gn8tx")
-texture_scale = 5.03
-script = ExtResource("4_ygo2t")
-radius = 120.0
 is_object = false
-
-[node name="ObjectLight" type="PointLight2D" parent="MainLight" unique_id=1085839198]
-range_item_cull_mask = 2
-texture = SubResource("GradientTexture2D_gn8tx")
-texture_scale = 5.03
 
 [node name="StickLantern" type="AnimatedSprite2D" parent="." unique_id=912987912]
 sprite_frames = SubResource("SpriteFrames_hss5h")

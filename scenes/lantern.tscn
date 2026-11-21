@@ -1,32 +1,12 @@
 [gd_scene format=3 uid="uid://da20mm4sgn47y"]
 
 [ext_resource type="Texture2D" uid="uid://bysivpdfcrhme" path="res://textures/lantern.png" id="1_hhuhv"]
-[ext_resource type="Script" uid="uid://bu3uq44irrnew" path="res://scripts/light.gd" id="2_uxgnm"]
-
-[sub_resource type="Gradient" id="Gradient_j8ivh"]
-interpolation_mode = 2
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_uxgnm"]
-gradient = SubResource("Gradient_j8ivh")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.8000001, 0.20000002)
+[ext_resource type="PackedScene" uid="uid://c10jfkyblblf5" path="res://scenes/main_light.tscn" id="2_uxgnm"]
 
 [node name="Lantern" type="Sprite2D" unique_id=634575434]
 scale = Vector2(2, 2)
 texture = ExtResource("1_hhuhv")
 
-[node name="MainLight" type="PointLight2D" parent="." unique_id=1924854014 groups=["light_sources"]]
+[node name="MainLight" parent="." unique_id=132259717 instance=ExtResource("2_uxgnm")]
 position = Vector2(0, 2.5)
 scale = Vector2(0.5, 0.5)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_uxgnm")
-texture_scale = 5.03
-script = ExtResource("2_uxgnm")
-radius = 120.0
-
-[node name="ObjectLight" type="PointLight2D" parent="MainLight" unique_id=761793948]
-range_item_cull_mask = 2
-texture = SubResource("GradientTexture2D_uxgnm")
-texture_scale = 5.03
