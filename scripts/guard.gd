@@ -28,7 +28,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	_turn_animation()
-	#sprite.play("down_idle")
 	
 func _turn_animation():
 	if velocity != Vector2.ZERO:
@@ -42,13 +41,3 @@ func _turn_animation():
 				sprite.play("down_walk")
 			else:
 				sprite.play("up_walk")
-	else:
-		if !sprite.animation.contains("idle"):
-			if sprite.animation.contains("right"):
-				sprite.play("right_idle")
-			if sprite.animation.contains("left"):
-				sprite.play("left_idle")
-			if sprite.animation.contains("down"):
-				sprite.play("down_idle")
-			if sprite.animation.contains("up"):
-				sprite.play("up_idle")

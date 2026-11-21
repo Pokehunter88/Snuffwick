@@ -53,6 +53,9 @@ func _physics_process(delta: float) -> void:
 			dash_direction = move_dir.normalized()
 		else:
 			dash_direction = old_move_dir.normalized()
+			
+		_dash_animation()
+		
 		var after_image = Sprite2D.new()
 		
 		after_image.texture = player_sprite.sprite_frames.get_frame_texture(player_sprite.animation, player_sprite.frame)
@@ -67,8 +70,6 @@ func _physics_process(delta: float) -> void:
 		tween.tween_callback(after_image.queue_free)
 		
 		get_tree().current_scene.add_child(after_image)
-		
-		_dash_animation()
 	
 	if dash_time > 0:
 		velocity = dash_direction * dash_speed

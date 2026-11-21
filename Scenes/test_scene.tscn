@@ -409,4 +409,4 @@ position = Vector2(241, 445)
 
 [node name="Guard" parent="." unique_id=1340063206 node_paths=PackedStringArray("markers") instance=ExtResource("8_rnaij")]
 position = Vector2(217, 408)
-markers = [NodePath("../Guard Marker"), NodePath("../Guard Marker2"), NodePath("../Guard Marker3"), NodePath("../Guard Marker4")]
+markers = [NodePath("../Guard Marker"), NodePath("../Guard Marker2")]

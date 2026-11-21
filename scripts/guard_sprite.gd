@@ -1,10 +1,13 @@
 extends AnimatedSprite2D
 
 @export var simplification_epsilon: float = 2.0
+@export var light_speed: float = 100.0
+
+var light_position := Vector2.ZERO
 
 const FRAME_OFFSETS := {
-	"up_walk": Vector2(-12.0, 4),
-	"down_walk": Vector2(12.0, 4),
+	"up_walk": Vector2(-6.0, -12.0),
+	"down_walk": Vector2(7.0, 20.0),
 	"left_walk": Vector2(-15.0, 6.0),
 	"right_walk": Vector2(15.0, 6.0)
 }
@@ -37,6 +40,10 @@ func generate_occluder() -> void:
 		var occluder_node := $LightOccluder2D
 		occluder_node.occluder = occluder_poly
 
+func _process(delta: float) -> void:
+	#$MainLight.position = $MainLight.position.lerp(light_position, delta * light_speed)
+	$MainLight.position = light_position
+
 func _on_frame_changed() -> void:
 	generate_occluder()
 	
@@ -45,7 +52,7 @@ func _on_frame_changed() -> void:
 	$StickLantern.set_frame_and_progress(frame, 0)
 	
 	if FRAME_OFFSETS.has(animation):
-		$MainLight.position = FRAME_OFFSETS[animation]
+		light_position = FRAME_OFFSETS[animation]
 
 func _on_animation_changed() -> void:
 	_on_frame_changed()
