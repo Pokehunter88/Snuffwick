@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://p7uquuis5ik1"]
+
+[sub_resource type="Gradient" id="Gradient_rnaij"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bcvot"]
+gradient = SubResource("Gradient_rnaij")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8518519, 0.17378917)
+
+[node name="Guard Marker" type="Marker2D" unique_id=546642490]
+gizmo_extents = 19.2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=795163260]
+self_modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.49, 0.49)
+texture = SubResource("GradientTexture2D_bcvot")

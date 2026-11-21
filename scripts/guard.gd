@@ -1,43 +1,54 @@
-extends AnimatedSprite2D
+extends CharacterBody2D
 
-@export var simplification_epsilon: float = 2.0
+@onready var sprite: AnimatedSprite2D = $GuardSprite
 
-func _ready() -> void:
-	generate_occluder()
-	play("right_walk")
+@export var markers: Array[Marker2D] = []
 
-func generate_occluder() -> void:
-	if not sprite_frames.get_frame_texture(animation, frame):
-		return
+@export var speed: float = 60.0
+@export var deaccelertion: float = 1500.0
 
-	# 1. Create a BitMap from the sprite's alpha channel
-	var image: Image = sprite_frames.get_frame_texture(animation, frame).get_image()
-	var bitmap := BitMap.new()
-	bitmap.create_from_image_alpha(image)
+@export var marker_change_distance: float = 10.0
 
-	# 2. Convert opaque pixels into polygon outlines
-	var rect := Rect2(Vector2.ZERO, bitmap.get_size())
-	var polygons: Array[PackedVector2Array] = bitmap.opaque_to_polygons(rect, simplification_epsilon)
+var marker_index: int = 0
 
-	# 3. Create a LightOccluder2D for each generated polygon island
-	for poly in polygons:
-		# Offset points if the sprite is centered
-		if centered:
-			var offset_poly := PackedVector2Array()
-			var half_size := Vector2(bitmap.get_size()) / 2.0
-			for point in poly:
-				offset_poly.append(point - half_size)
-			poly = offset_poly
-
-		var occluder_poly := OccluderPolygon2D.new()
-		occluder_poly.polygon = poly
-
-		var occluder_node := $LightOccluder2D
-		occluder_node.occluder = occluder_poly
-
-func _on_frame_changed() -> void:
-	generate_occluder()
+func _physics_process(delta: float) -> void:
+	var move_dir = markers[marker_index].global_position - global_position
 	
-	if animation != $StickLantern.animation:
-		$StickLantern.play(animation)
-	$StickLantern.set_frame_and_progress(frame, 0)
+	if global_position.distance_to(markers[marker_index].global_position) < marker_change_distance:
+		marker_index += 1
+		if marker_index == markers.size():
+			marker_index = 0
+	
+	if move_dir != Vector2.ZERO:
+		velocity = speed * move_dir.normalized()
+	else:
+		velocity.x = move_toward(velocity.x, 0, delta * deaccelertion)
+		velocity.y = move_toward(velocity.y, 0, delta * deaccelertion)
+	
+	move_and_slide()
+	
+	_turn_animation()
+	#sprite.play("down_idle")
+	
+func _turn_animation():
+	if velocity != Vector2.ZERO:
+		if abs(velocity.x) >= abs(velocity.y):
+			if velocity.x > 0:
+				sprite.play("right_walk")
+			else:
+				sprite.play("left_walk")
+		else:
+			if velocity.y > 0:
+				sprite.play("down_walk")
+			else:
+				sprite.play("up_walk")
+	else:
+		if !sprite.animation.contains("idle"):
+			if sprite.animation.contains("right"):
+				sprite.play("right_idle")
+			if sprite.animation.contains("left"):
+				sprite.play("left_idle")
+			if sprite.animation.contains("down"):
+				sprite.play("down_idle")
+			if sprite.animation.contains("up"):
+				sprite.play("up_idle")

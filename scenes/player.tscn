@@ -235,6 +235,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=1043669616 node_paths=PackedStringArray("light_manager")]
+collision_layer = 2
 script = ExtResource("1_g2els")
 light_manager = NodePath("LightManager")
 

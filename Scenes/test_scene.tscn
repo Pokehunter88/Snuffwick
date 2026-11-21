@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://da20mm4sgn47y" path="res://scenes/lantern.tscn" id="6_3qnke"]
 [ext_resource type="TileSet" uid="uid://dapoqr7johe5s" path="res://tilesets/castle_tileset.tres" id="6_wtsjf"]
 [ext_resource type="PackedScene" uid="uid://20vpceqnlgu4" path="res://scenes/candle.tscn" id="7_wtsjf"]
-[ext_resource type="PackedScene" uid="uid://cvm8thicnli8a" path="res://scenes/guard.tscn" id="8_rnaij"]
+[ext_resource type="PackedScene" uid="uid://p7uquuis5ik1" path="res://scenes/guard_marker.tscn" id="8_h3xc6"]
+[ext_resource type="PackedScene" uid="uid://dd3nhvggbyacx" path="res://scenes/guard.tscn" id="8_rnaij"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_hss5h"]
 
@@ -352,7 +353,7 @@ color = Color(0.31919998, 0.34272, 0.42, 1)
 
 [node name="Player" parent="." unique_id=1043669616 instance=ExtResource("1_g7g4h")]
 z_index = 2
-position = Vector2(203, 168)
+position = Vector2(125, 332)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=868219299 node_paths=PackedStringArray("player")]
 script = ExtResource("2_j8ivh")
@@ -383,13 +384,29 @@ position = Vector2(260, 219)
 position = Vector2(342, 310)
 
 [node name="Lantern" parent="." unique_id=1627969925 instance=ExtResource("6_3qnke")]
+visible = false
 position = Vector2(33, 201)
 
 [node name="Lantern3" parent="." unique_id=634575434 instance=ExtResource("6_3qnke")]
+visible = false
 position = Vector2(-163, 355)
 
 [node name="Candle" parent="." unique_id=1483222600 instance=ExtResource("7_wtsjf")]
-position = Vector2(86, 450)
+visible = false
+position = Vector2(-156, 345)
 
-[node name="Guard" parent="." unique_id=407738538 instance=ExtResource("8_rnaij")]
-position = Vector2(261, 332)
+[node name="Guard Marker" parent="." unique_id=546642490 instance=ExtResource("8_h3xc6")]
+position = Vector2(67, 439)
+
+[node name="Guard Marker2" parent="." unique_id=2109732718 instance=ExtResource("8_h3xc6")]
+position = Vector2(90, 347)
+
+[node name="Guard Marker3" parent="." unique_id=1524041412 instance=ExtResource("8_h3xc6")]
+position = Vector2(219, 338)
+
+[node name="Guard Marker4" parent="." unique_id=787882733 instance=ExtResource("8_h3xc6")]
+position = Vector2(241, 445)
+
+[node name="Guard" parent="." unique_id=1340063206 node_paths=PackedStringArray("markers") instance=ExtResource("8_rnaij")]
+position = Vector2(217, 408)
+markers = [NodePath("../Guard Marker"), NodePath("../Guard Marker2"), NodePath("../Guard Marker3"), NodePath("../Guard Marker4")]

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
-signal died
+#signal died
 
 @onready var player_sprite: AnimatedSprite2D = $PlayerSprite
 
@@ -29,13 +29,17 @@ var old_move_dir := Vector2.ZERO
 func _ready() -> void:
 	player_sprite.play("down_idle")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 
 func _physics_process(delta: float) -> void:
-	var move_dir = Vector2(Input.get_axis("move_left", "move_right"), 
-	Input.get_axis("move_up", "move_down"))
+	var move_dir = Vector2(Input.get_axis("move_left", "move_right"),
+	Input.get_axis("move_up", "move_down")) 
+	
+	# for disabling player movement
+	#if light_manager.show_debug_lines:
+		#move_dir = Vector2.ZERO
 	
 	if move_dir != Vector2.ZERO:
 		velocity = speed * move_dir.normalized()

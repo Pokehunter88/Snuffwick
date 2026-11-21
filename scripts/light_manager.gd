@@ -16,7 +16,7 @@ var is_colliding := []
 
 var in_light := false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var currently_in_light := false
 	
 	ray_start = []
@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 		var origin = light_source.global_position
 		var end = global_position
 		
-		if origin.distance_to(end) > light_source.radius or !light_source.enabled:
+		if origin.distance_to(end) > light_source.radius or !light_source.enabled or !light_source.is_visible_in_tree():
 			continue
 		
 		if origin.distance_to(end) < interact_distance:
