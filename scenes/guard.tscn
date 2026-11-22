@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://b4wcqmyi3b0ub" path="res://scripts/guard_sprite.gd" id="3_gn8tx"]
 [ext_resource type="PackedScene" uid="uid://c10jfkyblblf5" path="res://scenes/main_light.tscn" id="4_gn8tx"]
 [ext_resource type="Texture2D" uid="uid://qgrel2rlks23" path="res://textures/stick_lantern.png" id="5_gn8tx"]
+[ext_resource type="Texture2D" uid="uid://5xh8wnb5d27u" path="res://textures/symbols.png" id="6_5dfqo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bcvot"]
 radius = 8.0
@@ -395,6 +396,44 @@ animations = [{
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_rnaij"]
 polygon = PackedVector2Array(-5, -11, 5, -11, 5, 11, -5, 11)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qs8vo"]
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qulc2"]
+atlas = ExtResource("6_5dfqo")
+region = Rect2(9, 0, 9, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ima0r"]
+atlas = ExtResource("6_5dfqo")
+region = Rect2(0, 0, 9, 13)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d6jv3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qulc2")
+}],
+"loop": 1,
+"name": &"alert",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": 1,
+"name": &"none",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ima0r")
+}],
+"loop": 1,
+"name": &"suspicious",
+"speed": 5.0
+}]
+
 [node name="Guard" type="CharacterBody2D" unique_id=1340063206]
 collision_layer = 4
 script = ExtResource("2_k0dx2")
@@ -427,6 +466,12 @@ occluder = SubResource("OccluderPolygon2D_rnaij")
 position = Vector2(7, 20)
 scale = Vector2(0.5, 0.5)
 is_object = false
+
+[node name="StateSprite" type="AnimatedSprite2D" parent="GuardSprite" unique_id=668910855]
+material = SubResource("CanvasItemMaterial_qs8vo")
+position = Vector2(0, -18.5)
+sprite_frames = SubResource("SpriteFrames_d6jv3")
+animation = &"alert"
 
 [connection signal="animation_changed" from="GuardSprite" to="GuardSprite" method="_on_animation_changed"]
 [connection signal="frame_changed" from="GuardSprite" to="GuardSprite" method="_on_frame_changed"]

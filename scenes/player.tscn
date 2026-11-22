@@ -266,13 +266,13 @@ script = ExtResource("3_qhqgy")
 
 [node name="DashTrail" type="CPUParticles2D" parent="." unique_id=1972750556]
 emitting = false
-amount = 100
+amount = 200
 emission_shape = 3
 emission_rect_extents = Vector2(12, 20)
 gravity = Vector2(0, 0)
 scale_amount_min = 2.0
 scale_amount_max = 2.0
-color = Color(0.14, 0.14, 0.14, 1)
+color = Color(0.19215687, 0.20784314, 0.24705882, 1)
 color_ramp = SubResource("Gradient_bcvot")
 
 [connection signal="animation_looped" from="PlayerSprite" to="." method="_on_player_sprite_animation_looped"]
