@@ -60,7 +60,9 @@ func _physics_process(delta: float) -> void:
 			dash_direction = move_dir.normalized()
 		else:
 			dash_direction = old_move_dir.normalized()
-			
+		
+		velocity = dash_direction * dash_speed
+		
 		_dash_animation()
 		
 		var after_image = Sprite2D.new()
@@ -77,11 +79,16 @@ func _physics_process(delta: float) -> void:
 		tween.tween_callback(after_image.queue_free)
 		
 		get_tree().current_scene.add_child(after_image)
+		
+		$DashTrail.emitting = true
 	
 	if dash_time > 0:
+		if velocity == Vector2.ZERO:
+			dash_time = 0;
 		velocity = dash_direction * dash_speed
 		dash_time -= delta
 		if dash_time <= 0:
+			$DashTrail.emitting = false
 			if light_manager.in_light:
 				_on_light_manager_player_in_light()
 				stagger_time = stagger_length

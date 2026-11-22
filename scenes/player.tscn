@@ -241,6 +241,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_bcvot"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.26409495, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.97255844, 0.9699017, 0.9691669, 0.9691669, 0.11, 0.023833336, 0, 0)
+
 [node name="Player" type="CharacterBody2D" unique_id=1043669616 node_paths=PackedStringArray("light_manager")]
 collision_layer = 2
 script = ExtResource("1_g2els")
@@ -258,6 +263,17 @@ frame_progress = 0.4790883
 
 [node name="LightManager" type="Node2D" parent="." unique_id=487235123]
 script = ExtResource("3_qhqgy")
+
+[node name="DashTrail" type="CPUParticles2D" parent="." unique_id=1972750556]
+emitting = false
+amount = 100
+emission_shape = 3
+emission_rect_extents = Vector2(12, 20)
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color = Color(0.14, 0.14, 0.14, 1)
+color_ramp = SubResource("Gradient_bcvot")
 
 [connection signal="animation_looped" from="PlayerSprite" to="." method="_on_player_sprite_animation_looped"]
 [connection signal="player_in_dark" from="LightManager" to="." method="_on_light_manager_player_in_dark"]
