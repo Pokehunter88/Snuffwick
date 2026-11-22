@@ -353,7 +353,7 @@ color = Color(0.31919998, 0.34272, 0.42, 1)
 
 [node name="Player" parent="." unique_id=1043669616 instance=ExtResource("1_g7g4h")]
 z_index = 2
-position = Vector2(125, 332)
+position = Vector2(170, 201)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=868219299 node_paths=PackedStringArray("player")]
 script = ExtResource("2_j8ivh")
@@ -393,20 +393,20 @@ position = Vector2(-163, 355)
 
 [node name="Candle" parent="." unique_id=1483222600 instance=ExtResource("7_wtsjf")]
 visible = false
-position = Vector2(-156, 345)
+position = Vector2(310, 155)
 
 [node name="Guard Marker" parent="." unique_id=546642490 instance=ExtResource("8_h3xc6")]
 position = Vector2(67, 439)
 
 [node name="Guard Marker2" parent="." unique_id=2109732718 instance=ExtResource("8_h3xc6")]
-position = Vector2(90, 347)
+position = Vector2(71, 386)
 
 [node name="Guard Marker3" parent="." unique_id=1524041412 instance=ExtResource("8_h3xc6")]
-position = Vector2(219, 338)
+position = Vector2(236, 382)
 
 [node name="Guard Marker4" parent="." unique_id=787882733 instance=ExtResource("8_h3xc6")]
 position = Vector2(241, 445)
 
 [node name="Guard" parent="." unique_id=1340063206 node_paths=PackedStringArray("markers") instance=ExtResource("8_rnaij")]
 position = Vector2(217, 408)
-markers = [NodePath("../Guard Marker"), NodePath("../Guard Marker2")]
+markers = [NodePath("../Guard Marker"), NodePath("../Guard Marker2"), NodePath("../Guard Marker3"), NodePath("../Guard Marker4")]

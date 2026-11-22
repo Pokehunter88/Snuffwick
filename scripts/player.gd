@@ -4,21 +4,26 @@ class_name Player
 #signal died
 
 @onready var player_sprite: AnimatedSprite2D = $PlayerSprite
+@onready var shader := $PlayerSprite.material as ShaderMaterial
 
 @export var light_manager: LightManager
 
 @export var in_dark_speed: float = 100.0
 @export var in_light_speed: float = 60.0
+@export var stagger_speed: float = 10.0
 @export var deaccelertion: float = 1500.0
 
-@export var dash_length: float = 0.15 * 1.5
+@export var dash_length: float = 0.225
 @export var dash_cooldown_length: float = 0.2
 @export var dash_speed: float = 500.0
+@export var stagger_length: float = 0.5
 @export var after_image_fade_speed: float = 1.0
 
 @onready var speed: float = in_dark_speed
 
 var dash_time: float = 0.0
+var stagger_time: float = 0.0
+
 var dash_cooldown_time: float = 0.0
 var dash_direction := Vector2.ZERO
 
@@ -32,6 +37,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
+	
+	#shader.set_shader_parameter("light_amount", clamp(((global_position.x - 170) / 50) + 0.5, 0, 1))
 
 func _physics_process(delta: float) -> void:
 	var move_dir = Vector2(Input.get_axis("move_left", "move_right"),
@@ -77,12 +84,25 @@ func _physics_process(delta: float) -> void:
 		if dash_time <= 0:
 			if light_manager.in_light:
 				_on_light_manager_player_in_light()
+				stagger_time = stagger_length
+				player_sprite.speed_scale = stagger_speed / in_dark_speed
 			else:
 				_on_light_manager_player_in_dark()
 			velocity = speed * move_dir.normalized()
 			dash_cooldown_time = dash_cooldown_length
 	else:
 		_turn_animation(false)
+	
+	if stagger_time > 0:
+		speed = stagger_speed
+		stagger_time -= delta
+		if stagger_time <= 0:
+			if light_manager.in_light:
+				speed = in_light_speed
+				player_sprite.speed_scale = in_light_speed / in_dark_speed
+			else:
+				speed = in_dark_speed
+				player_sprite.speed_scale = 1.0
 	
 	if dash_cooldown_time > 0:
 		dash_cooldown_time -= delta
@@ -139,13 +159,19 @@ func _on_player_sprite_animation_looped() -> void:
 func _on_light_manager_player_in_light() -> void:
 	if dash_time <= 0 and !in_light:
 		in_light = true
-		$PlayerSprite.self_modulate = Color(1, 0, 0)
+		#$PlayerSprite.self_modulate = Color(1, 0, 0)
+		shader.set_shader_parameter("light_amount", 1.0)
+		shader.set_shader_parameter("squint", true)
+		player_sprite.speed_scale = in_light_speed / in_dark_speed
 		speed = in_light_speed
 
 func _on_light_manager_player_in_dark() -> void:
 	if dash_time <= 0 and in_light:
 		in_light = false
-		$PlayerSprite.self_modulate = Color(1, 1, 1)
+		#$PlayerSprite.self_modulate = Color(1, 1, 1)
+		shader.set_shader_parameter("light_amount", 0.3)
+		shader.set_shader_parameter("squint", false)
+		player_sprite.speed_scale = 1.0
 		speed = in_dark_speed
 
 #func _on_hitbox_body_entered(body: Node2D) -> void:
