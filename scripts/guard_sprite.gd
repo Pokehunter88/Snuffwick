@@ -41,7 +41,7 @@ func generate_occluder() -> void:
 		var occluder_node := $LightOccluder2D
 		occluder_node.occluder = occluder_poly
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#$MainLight.position = $MainLight.position.lerp(light_position, delta * light_speed)
 	$MainLight.position = light_position
 

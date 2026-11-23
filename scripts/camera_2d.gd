@@ -5,6 +5,9 @@ extends Camera2D
 
 var last_position := Vector2.ZERO
 
+func _ready() -> void:
+	global_position = player.global_position
+
 func _physics_process(delta: float) -> void:
 	var currentPosition
 	

@@ -15,6 +15,8 @@ var ray_end := []
 var is_colliding := []
 
 var in_light := false
+var in_alert_light := false
+var lights: Array[Light] = []
 
 func _process(_delta: float) -> void:
 	var currently_in_light := false
@@ -22,14 +24,19 @@ func _process(_delta: float) -> void:
 	ray_start = []
 	ray_end = []
 	is_colliding = []
+	in_alert_light = false
+	
+	lights = []
 	for light_source in light_sources:
 		var origin = light_source.global_position
 		var end = global_position
 		
-		if origin.distance_to(end) > light_source.radius or !light_source.enabled or !light_source.is_visible_in_tree():
+		var distance = origin.distance_to(end)
+		
+		if distance > light_source.radius or !light_source.enabled or !light_source.is_visible_in_tree():
 			continue
 		
-		if origin.distance_to(end) < interact_distance:
+		if distance < interact_distance:
 			_check_interact(light_source)
 		
 		var space_state = get_world_2d().direct_space_state
@@ -42,19 +49,20 @@ func _process(_delta: float) -> void:
 		if result:
 			ray_end.append(result.position)
 			currently_in_light = currently_in_light or result.collider.name == "Player"
+			lights.append(light_source)
 			is_colliding.append(result.collider.name == "Player")
+			
+			in_alert_light = in_alert_light or distance < light_source.alert_radius
 		else:
 			ray_end.append(end)
 			is_colliding.append(false)
 	
-	if currently_in_light:
-		if !in_light:
-			player_in_light.emit()
-		in_light = true
-	else:
-		if in_light:
-			player_in_dark.emit()
-		in_light = false
+	if currently_in_light and !in_light:
+		player_in_light.emit()
+	elif !currently_in_light and in_light:
+		player_in_dark.emit()
+	
+	in_light = currently_in_light
 	
 	if Input.is_action_just_pressed("debug"):
 		show_debug_lines = !show_debug_lines

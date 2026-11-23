@@ -37,6 +37,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
+	if Input.is_action_just_pressed("restart"):
+		get_tree().reload_current_scene()
 	
 	#shader.set_shader_parameter("light_amount", clamp(((global_position.x - 170) / 50) + 0.5, 0, 1))
 
@@ -49,7 +51,11 @@ func _physics_process(delta: float) -> void:
 		#move_dir = Vector2.ZERO
 	
 	if move_dir != Vector2.ZERO:
-		velocity = speed * move_dir.normalized()
+		if velocity.length() > speed:
+			velocity.x = move_toward(velocity.x, speed * move_dir.normalized().x, delta * deaccelertion)
+			velocity.y = move_toward(velocity.y, speed * move_dir.normalized().y, delta * deaccelertion)
+		else:
+			velocity = speed * move_dir.normalized()
 	else:
 		velocity.x = move_toward(velocity.x, 0, delta * deaccelertion)
 		velocity.y = move_toward(velocity.y, 0, delta * deaccelertion)
@@ -180,8 +186,3 @@ func _on_light_manager_player_in_dark() -> void:
 		shader.set_shader_parameter("squint", false)
 		player_sprite.speed_scale = 1.0
 		speed = in_dark_speed
-
-#func _on_hitbox_body_entered(body: Node2D) -> void:
-	#if body is Enemy:
-		#died.emit()
-		#queue_free()

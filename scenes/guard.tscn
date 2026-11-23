@@ -447,9 +447,7 @@ shape = SubResource("CapsuleShape2D_bcvot")
 light_mask = 2
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bcvot")
-animation = &"down_walk"
-frame = 1
-frame_progress = 0.5628586
+animation = &"right_walk"
 script = ExtResource("3_gn8tx")
 simplification_epsilon = 0.0
 
@@ -466,6 +464,7 @@ occluder = SubResource("OccluderPolygon2D_rnaij")
 position = Vector2(7, 20)
 scale = Vector2(0.5, 0.5)
 is_object = false
+can_disable = false
 
 [node name="StateSprite" type="AnimatedSprite2D" parent="GuardSprite" unique_id=668910855]
 material = SubResource("CanvasItemMaterial_qs8vo")
