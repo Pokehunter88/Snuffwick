@@ -33,6 +33,8 @@ var old_move_dir := Vector2.ZERO
 
 func _ready() -> void:
 	player_sprite.play("down_idle")
+	shader.set_shader_parameter("light_amount", 0.3)
+	shader.set_shader_parameter("squint", false)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("quit"):

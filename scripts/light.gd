@@ -6,6 +6,9 @@ class_name Light
 @export var is_object: bool = true
 @export var can_disable: bool = true
 
+func _ready() -> void:
+	$ObjectLight.color = color
+
 func enable():
 	enabled = true
 	$ObjectLight.enabled = true

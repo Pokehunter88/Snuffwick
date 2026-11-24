@@ -4,6 +4,9 @@ extends CharacterBody2D
 @onready var lantern_sprite: AnimatedSprite2D = $GuardSprite/StickLantern
 @onready var state_sprite: AnimatedSprite2D = $GuardSprite/StateSprite
 @onready var player: CharacterBody2D = %Player
+@onready var shader := $GuardSprite.material as ShaderMaterial
+
+@onready var default_color: Color = $GuardSprite/MainLight.color
 
 @export var markers: Array[Marker2D] = []
 
@@ -14,6 +17,10 @@ extends CharacterBody2D
 
 @export var suspicious_length: float = 1.0
 @export var suspicious_linger_length: float = 3.0
+
+@export var alert_color: Color = Color.RED
+
+var current_color: Color = default_color
 
 var marker_index: int = 0
 
@@ -35,6 +42,7 @@ var last_seen_player := Vector2.ZERO
 
 func _ready() -> void:
 	state_sprite.play("none")
+	shader.set_shader_parameter("amount", 0.0)
 
 func _physics_process(delta: float) -> void:
 	var move_dir = Vector2.ZERO
@@ -107,6 +115,7 @@ func _physics_process(delta: float) -> void:
 				else:
 					_change_state(State.PATROL)
 
+
 func _change_state(new_state: State):
 	if new_state == State.PATROL:
 		state_sprite.play("none")
@@ -124,10 +133,24 @@ func _change_state(new_state: State):
 		lantern_sprite.frame = 0
 	elif new_state == State.ALERT:
 		state_sprite.play("alert")
+		
+		#current_color = alert_color
+		#var tween = create_tween()
+		#tween.tween_property($GuardSprite/MainLight, "color", current_color, 0.25)
+		#tween = create_tween()
+		#tween.tween_property($GuardSprite/MainLight/ObjectLight, "color", current_color, 0.25)
+		
+		shader.set_shader_parameter("amount", 1.0)
 	
 	if new_state != State.SUSPICIOUS:
 		sprite.speed_scale = 1.0
 		lantern_sprite.speed_scale = 1.0
+	if new_state != State.ALERT and current_color != default_color:
+		current_color = default_color
+		var tween = create_tween()
+		tween.tween_property($GuardSprite/MainLight, "color", current_color, 0.5)
+		tween = create_tween()
+		tween.tween_property($GuardSprite/MainLight/ObjectLight, "color", current_color, 0.5)
 	
 	state_sprite.modulate = Color(1, 1, 1, 1)
 	state = new_state
