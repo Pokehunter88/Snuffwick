@@ -71,6 +71,10 @@ func _physics_process(delta: float) -> void:
 		else:
 			player.velocity = (player.global_position - global_position).normalized() * 400
 	
+	# For controlling guard
+	#move_dir = Vector2(Input.get_axis("move_left", "move_right"),
+	#Input.get_axis("move_up", "move_down")) 
+	
 	if move_dir != Vector2.ZERO:
 		velocity = speed * move_dir.normalized()
 	else:

@@ -394,6 +394,7 @@ animations = [{
 }]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_rnaij"]
+cull_mode = 1
 polygon = PackedVector2Array(-5, -11, 5, -11, 5, 11, -5, 11)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qs8vo"]
@@ -470,7 +471,7 @@ can_disable = false
 material = SubResource("CanvasItemMaterial_qs8vo")
 position = Vector2(0, -18.5)
 sprite_frames = SubResource("SpriteFrames_d6jv3")
-animation = &"alert"
+animation = &"none"
 
 [connection signal="animation_changed" from="GuardSprite" to="GuardSprite" method="_on_animation_changed"]
 [connection signal="frame_changed" from="GuardSprite" to="GuardSprite" method="_on_frame_changed"]

@@ -1,9 +1,15 @@
 extends AnimatedSprite2D
 
 @export var simplification_epsilon: float = 2.0
-@export var light_speed: float = 100.0
+@export var light_speed: float = 50.0
 
-var light_position := Vector2.ZERO
+var start_position := Vector2.ZERO
+var end_position := Vector2.ZERO
+
+var time: float = 0.0
+
+var start_animation := ""
+var old_animation := ""
 
 const FRAME_OFFSETS := {
 	"up_walk": Vector2(-6.0, -12.0),
@@ -37,13 +43,29 @@ func generate_occluder() -> void:
 
 		var occluder_poly := OccluderPolygon2D.new()
 		occluder_poly.polygon = poly
+		occluder_poly.cull_mode = OccluderPolygon2D.CULL_COUNTER_CLOCKWISE
+		
 
 		var occluder_node := $LightOccluder2D
 		occluder_node.occluder = occluder_poly
 
-func _process(_delta: float) -> void:
-	#$MainLight.position = $MainLight.position.lerp(light_position, delta * light_speed)
-	$MainLight.position = light_position
+func _process(delta: float) -> void:
+	if time > 0:
+		time -= delta * 5.0
+		
+		var target = start_position + ((end_position - start_position) * (1 - time))
+		
+		if (start_animation == "up_walk" and animation == "right_walk") or (
+			start_animation == "right_walk" and animation == "up_walk"):
+			target.y -= sin(time * PI) * 9.0
+		elif (start_animation == "left_walk" and animation == "right_walk") or (
+			start_animation == "right_walk" and animation == "left_walk"):
+			target.y += sin(time * PI) * 9.0
+		elif (start_animation == "up_walk" and animation == "down_walk") or (
+			start_animation == "down_walk" and animation == "up_walk"):
+			target.x -= sin(time * PI) * 13.0
+		
+		$MainLight.position = target
 
 func _on_frame_changed() -> void:
 	generate_occluder()
@@ -52,8 +74,13 @@ func _on_frame_changed() -> void:
 		$StickLantern.play(animation)
 	$StickLantern.set_frame_and_progress(frame, 0)
 	
-	if FRAME_OFFSETS.has(animation):
-		light_position = FRAME_OFFSETS[animation]
+	if FRAME_OFFSETS.has(animation) and animation != old_animation:
+		start_position = $MainLight.position
+		end_position = FRAME_OFFSETS[animation]
+		time = 1.0
+		start_animation = old_animation
+	
+	old_animation = animation
 
 func _on_animation_changed() -> void:
 	_on_frame_changed()
