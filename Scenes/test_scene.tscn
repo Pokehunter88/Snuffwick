@@ -408,7 +408,7 @@ visible = false
 position = Vector2(-163, 355)
 
 [node name="Candle" parent="." unique_id=1483222600 instance=ExtResource("7_wtsjf")]
-position = Vector2(128, 156)
+position = Vector2(242, 119)
 
 [node name="Guard Marker" parent="." unique_id=546642490 instance=ExtResource("8_h3xc6")]
 position = Vector2(67, 439)
@@ -426,8 +426,8 @@ position = Vector2(232.2, 366.2)
 position = Vector2(241, 445)
 
 [node name="Guard" parent="." unique_id=1340063206 node_paths=PackedStringArray("markers") instance=ExtResource("8_rnaij")]
-position = Vector2(314, 431)
-markers = [NodePath("../Guard Marker4"), NodePath("../Guard Marker")]
+position = Vector2(279, 388)
+markers = [NodePath("../Guard Marker"), NodePath("../Guard Marker5"), NodePath("../Guard Marker2"), NodePath("../Guard Marker3"), NodePath("../Guard Marker4")]
 
 [node name="Box" type="Sprite2D" parent="." unique_id=1595285973]
 visible = false

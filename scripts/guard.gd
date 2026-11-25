@@ -20,6 +20,8 @@ extends CharacterBody2D
 @export var suspicious_linger_length: float = 3.0
 
 @export var alert_color: Color = Color.RED
+@export var shadow_energy: float = 2.0
+@export var shadow_energy_speed: float = 8.0
 
 var current_color: Color = default_color
 
@@ -100,6 +102,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_turn_animation()
 	
+	$GuardSprite/MainLight/PurpleLight.energy = lerp($GuardSprite/MainLight/PurpleLight.energy, shadow_energy, delta * shadow_energy_speed)
+	$GuardSprite/MainLight/ShadowLight.energy = $GuardSprite/MainLight/PurpleLight.energy
+	
 	var old_player_in_sight = player_in_sight
 	_look_for_player()
 	
@@ -167,9 +172,14 @@ func _change_state(new_state: State):
 			can_alert_move = true 
 			_start_animation()
 			)
+			
+		shadow_energy = 0.0
 	elif new_state == State.RECOVERING:
 		state_sprite.play("none")
 		_stop_animation()
+	
+	if new_state != State.ALERT and new_state != State.RECOVERING:
+		shadow_energy = 2.0
 	
 	state_sprite.modulate = Color(1, 1, 1, 1)
 	state = new_state

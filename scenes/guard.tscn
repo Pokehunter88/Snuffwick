@@ -403,12 +403,12 @@ animations = [{
 cull_mode = 1
 polygon = PackedVector2Array(-5, -11, 5, -11, 5, 11, -5, 11)
 
-[sub_resource type="Gradient" id="Gradient_h3xc6"]
+[sub_resource type="Gradient" id="Gradient_rmy4q"]
 interpolation_mode = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ywdc2"]
-gradient = SubResource("Gradient_h3xc6")
+gradient = SubResource("Gradient_rmy4q")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.8000001, 0.20000002)
@@ -485,11 +485,9 @@ occluder_light_mask = 2
 position = Vector2(7, 20)
 scale = Vector2(0.5, 0.5)
 color = Color(1, 0.748, 0.45999998, 1)
-is_object = false
-can_disable = false
 
 [node name="PurpleLight" type="PointLight2D" parent="GuardSprite/MainLight" unique_id=1548750357]
-color = Color(0.10948039, 0.4252839, 0, 1)
+color = Color(0.43137255, 0.52156866, 0.26666668, 1)
 energy = 2.0
 blend_mode = 1
 range_item_cull_mask = 4
@@ -497,7 +495,7 @@ texture = SubResource("GradientTexture2D_ywdc2")
 texture_scale = 4.0
 
 [node name="ShadowLight" type="PointLight2D" parent="GuardSprite/MainLight" unique_id=2135047354]
-color = Color(0.10948039, 0.4252839, 0, 1)
+color = Color(0.43137255, 0.52156866, 0.26666668, 1)
 energy = 2.0
 range_item_cull_mask = 4
 shadow_enabled = true
