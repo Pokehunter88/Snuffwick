@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c7o4qrw3q6t23"]
+
+[ext_resource type="Script" uid="uid://b5fqvijrdetss" path="res://scripts/command.gd" id="1_hluhf"]
+
+[node name="Command" type="CanvasLayer" unique_id=238683265]
+script = ExtResource("1_hluhf")
+
+[node name="Control" type="Control" parent="." unique_id=904980591]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control" unique_id=1262026837]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 4.0
+offset_right = 174.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 12
+text = "test"

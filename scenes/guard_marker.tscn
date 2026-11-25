@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://p7uquuis5ik1"]
 
-[sub_resource type="Gradient" id="Gradient_rnaij"]
+[sub_resource type="Gradient" id="Gradient_3ggfo"]
 interpolation_mode = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_bcvot"]
-gradient = SubResource("Gradient_rnaij")
+gradient = SubResource("Gradient_3ggfo")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.8518519, 0.17378917)

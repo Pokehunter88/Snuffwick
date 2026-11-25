@@ -29,7 +29,7 @@ var ray_start := Vector2.ZERO
 var ray_end := Vector2.ZERO
 var is_colliding := false
 
-enum State { PATROL, SUSPICIOUS, ALERT }
+enum State { PATROL, SUSPICIOUS, ALERT, RECOVERING }
 var state: State = State.PATROL
 
 enum SuspiciousState { WAITING, MOVING, LOOKING }
@@ -40,6 +40,8 @@ var suspicious_time = 0.0
 var suspicious_linger_time = 0.0
 
 var last_seen_player := Vector2.ZERO
+
+var can_alert_move := false
 
 func _ready() -> void:
 	state_sprite.play("none")
@@ -64,8 +66,7 @@ func _physics_process(delta: float) -> void:
 		if suspicious_state == SuspiciousState.WAITING:
 			if !player_in_sight:
 				suspicious_state = SuspiciousState.MOVING
-				sprite.speed_scale = 1.0
-				lantern_sprite.speed_scale = 1.0
+				_start_animation()
 		else:
 			if suspicious_state == SuspiciousState.MOVING:
 				move_dir = last_seen_player - global_position
@@ -75,12 +76,16 @@ func _physics_process(delta: float) -> void:
 					_stop_animation()
 			if player_in_sight:
 				_change_state(State.SUSPICIOUS)
-	elif state == State.ALERT:
+	elif state == State.ALERT and can_alert_move:
 		if global_position.distance_to(player.global_position) > 20:
 			move_dir = player.global_position - global_position
 		else:
 			player.take_damage(1)
 			player.velocity = (player.global_position - global_position).normalized() * 400
+			_change_state(State.RECOVERING)
+			get_tree().create_timer(1.5).timeout.connect(func(): _change_state(State.SUSPICIOUS))
+			if !is_instance_valid(player):
+				return
 	
 	# For controlling guard
 	#move_dir = Vector2(Input.get_axis("move_left", "move_right"),
@@ -102,11 +107,11 @@ func _physics_process(delta: float) -> void:
 		if player_in_sight:
 			if !old_player_in_sight:
 				if suspicious_linger_time <= 0:
-					suspicious_time = 1
 					_change_state(State.SUSPICIOUS)
 	elif state == State.SUSPICIOUS:
 		if player_in_sight:
 			suspicious_time -= delta
+			last_seen_player = player.global_position
 			
 			if suspicious_time <= 0:
 				_change_state(State.ALERT)
@@ -117,18 +122,32 @@ func _physics_process(delta: float) -> void:
 					state_sprite.modulate = Color(1, 1, 1, clamp(suspicious_linger_time, 0, 1))
 				else:
 					_change_state(State.PATROL)
+	elif state == State.RECOVERING and player_in_sight:
+		last_seen_player = player.global_position
 
+func _start_animation():
+	sprite.speed_scale = 1.0
+	lantern_sprite.speed_scale = 1.0
+	#print("start")
+	
 func _stop_animation():
 	sprite.speed_scale = 0.0
 	sprite.frame = 0
 	lantern_sprite.speed_scale = 0.0
 	lantern_sprite.frame = 0
+	#print("stop")
 
 func _change_state(new_state: State):
+	if !is_instance_valid(player):
+		return
+	
 	if new_state == State.PATROL:
 		state_sprite.play("none")
+		shader.set_shader_parameter("amount", 0.0)
+		_start_animation()
 	elif new_state == State.SUSPICIOUS:
 		state_sprite.play("suspicious")
+		suspicious_time = 1
 		suspicious_state = SuspiciousState.WAITING
 		
 		last_seen_player = player.global_position
@@ -136,29 +155,25 @@ func _change_state(new_state: State):
 		_turn_animation()
 		_stop_animation()
 		velocity = Vector2.ZERO
+		shader.set_shader_parameter("amount", 0.0)
 	elif new_state == State.ALERT:
 		state_sprite.play("alert")
 		
-		#current_color = alert_color
-		#var tween = create_tween()
-		#tween.tween_property($GuardSprite/MainLight, "color", current_color, 0.25)
-		#tween = create_tween()
-		#tween.tween_property($GuardSprite/MainLight/ObjectLight, "color", current_color, 0.25)
-		
 		shader.set_shader_parameter("amount", 1.0)
-	
-	if new_state != State.SUSPICIOUS:
-		sprite.speed_scale = 1.0
-		lantern_sprite.speed_scale = 1.0
-	#if new_state != State.ALERT and current_color != default_color:
-		#current_color = default_color
-		#var tween = create_tween()
-		#tween.tween_property($GuardSprite/MainLight, "color", current_color, 0.5)
-		#tween = create_tween()
-		#tween.tween_property($GuardSprite/MainLight/ObjectLight, "color", current_color, 0.5)
+		
+		_stop_animation()
+		can_alert_move = false 
+		get_tree().create_timer(0.5).timeout.connect(func(): 
+			can_alert_move = true 
+			_start_animation()
+			)
+	elif new_state == State.RECOVERING:
+		state_sprite.play("none")
+		_stop_animation()
 	
 	state_sprite.modulate = Color(1, 1, 1, 1)
 	state = new_state
+	Global.GuardState = State.find_key(state)
 
 func _turn_animation():
 	if velocity != Vector2.ZERO:
@@ -193,7 +208,7 @@ func _look_for_player():
 	 #and player.light_manager.lights.has($GuardSprite/MainLight)
 	if is_colliding and player.in_light:
 		player_in_sight = true
-		if player.light_manager.in_alert_light:
+		if player.light_manager.in_alert_light and state != State.ALERT and state != State.RECOVERING:
 			_change_state(State.ALERT)
 	else:
 		player_in_sight = false
