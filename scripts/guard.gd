@@ -10,6 +10,7 @@ extends CharacterBody2D
 
 @export var markers: Array[Marker2D] = []
 
+@export var chase_speed: float = 80.0
 @export var speed: float = 60.0
 @export var deaccelertion: float = 1500.0
 
@@ -45,6 +46,10 @@ func _ready() -> void:
 	shader.set_shader_parameter("amount", 0.0)
 
 func _physics_process(delta: float) -> void:
+	if !is_instance_valid(player):
+		_stop_animation()
+		return
+	
 	var move_dir = Vector2.ZERO
 	
 	if state == State.PATROL:
@@ -67,16 +72,14 @@ func _physics_process(delta: float) -> void:
 				if global_position.distance_to(last_seen_player) < 5:
 					suspicious_state = SuspiciousState.LOOKING
 					suspicious_linger_time = suspicious_linger_length
-					sprite.speed_scale = 0.0
-					sprite.frame = 0
-					lantern_sprite.speed_scale = 0.0
-					lantern_sprite.frame = 0
+					_stop_animation()
 			if player_in_sight:
 				_change_state(State.SUSPICIOUS)
 	elif state == State.ALERT:
 		if global_position.distance_to(player.global_position) > 20:
 			move_dir = player.global_position - global_position
 		else:
+			player.take_damage(1)
 			player.velocity = (player.global_position - global_position).normalized() * 400
 	
 	# For controlling guard
@@ -84,7 +87,7 @@ func _physics_process(delta: float) -> void:
 	#Input.get_axis("move_up", "move_down")) 
 	
 	if move_dir != Vector2.ZERO:
-		velocity = speed * move_dir.normalized()
+		velocity = (speed if state != State.ALERT else chase_speed) * move_dir.normalized()
 	else:
 		velocity.x = move_toward(velocity.x, 0, delta * deaccelertion)
 		velocity.y = move_toward(velocity.y, 0, delta * deaccelertion)
@@ -115,6 +118,11 @@ func _physics_process(delta: float) -> void:
 				else:
 					_change_state(State.PATROL)
 
+func _stop_animation():
+	sprite.speed_scale = 0.0
+	sprite.frame = 0
+	lantern_sprite.speed_scale = 0.0
+	lantern_sprite.frame = 0
 
 func _change_state(new_state: State):
 	if new_state == State.PATROL:
@@ -126,11 +134,8 @@ func _change_state(new_state: State):
 		last_seen_player = player.global_position
 		velocity = last_seen_player - global_position
 		_turn_animation()
+		_stop_animation()
 		velocity = Vector2.ZERO
-		sprite.speed_scale = 0.0
-		sprite.frame = 0
-		lantern_sprite.speed_scale = 0.0
-		lantern_sprite.frame = 0
 	elif new_state == State.ALERT:
 		state_sprite.play("alert")
 		
@@ -145,12 +150,12 @@ func _change_state(new_state: State):
 	if new_state != State.SUSPICIOUS:
 		sprite.speed_scale = 1.0
 		lantern_sprite.speed_scale = 1.0
-	if new_state != State.ALERT and current_color != default_color:
-		current_color = default_color
-		var tween = create_tween()
-		tween.tween_property($GuardSprite/MainLight, "color", current_color, 0.5)
-		tween = create_tween()
-		tween.tween_property($GuardSprite/MainLight/ObjectLight, "color", current_color, 0.5)
+	#if new_state != State.ALERT and current_color != default_color:
+		#current_color = default_color
+		#var tween = create_tween()
+		#tween.tween_property($GuardSprite/MainLight, "color", current_color, 0.5)
+		#tween = create_tween()
+		#tween.tween_property($GuardSprite/MainLight/ObjectLight, "color", current_color, 0.5)
 	
 	state_sprite.modulate = Color(1, 1, 1, 1)
 	state = new_state

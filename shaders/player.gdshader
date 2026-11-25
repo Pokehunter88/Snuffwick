@@ -1,6 +1,7 @@
 shader_type canvas_item;
-uniform float light_amount : hint_range(0.0, 1.0) = 0.0;
-uniform float glow_strength : hint_range(0.0, 1.0) = 0.5;
+uniform float light_amount : hint_range(0.0, 1.0) = 0.3;
+uniform float alpha_amount : hint_range(0.0, 1.0) = 1.0;
+uniform float glow_strength : hint_range(0.0, 1.0) = 0.144;
 uniform bool squint = false;
 uniform vec4 shadow_cloak : source_color = vec4(0.08, 0.04, 0.12, 1.0);
 uniform vec4 eye_glow : source_color = vec4(0.7, 0.85, 1.0, 1.0);
@@ -41,5 +42,9 @@ void fragment() {
         c.rgb += vec3(0.15) * light_amount;
         if (c.a > 0.0) c.rgb = mix(c.rgb, eye_glow.rgb, glow);
     }
+	
+	if (c.a > 0.0) {
+		c.a = alpha_amount;
+	}
     COLOR = c;
 }

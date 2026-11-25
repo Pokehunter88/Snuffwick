@@ -19,6 +19,10 @@ class_name Player
 @export var stagger_length: float = 0.5
 @export var after_image_fade_speed: float = 1.0
 
+@export var health: int = 3
+
+@export var iframe_length: float = 1.5
+
 @onready var speed: float = in_dark_speed
 
 var dash_time: float = 0.0
@@ -31,9 +35,22 @@ var in_light := false
 
 var old_move_dir := Vector2.ZERO
 
+var iframe_time = 0.0
+
+func take_damage(amount: int):
+	if iframe_time > 0:
+		return
+	health -= amount
+	iframe_time = iframe_length
+	shader.set_shader_parameter("alpha_amount", 0.5)
+	if health <= 0:
+		queue_free()
+		get_tree().create_timer(1).timeout.connect(get_tree().reload_current_scene)
+
 func _ready() -> void:
 	player_sprite.play("down_idle")
 	shader.set_shader_parameter("light_amount", 0.3)
+	shader.set_shader_parameter("alpha_amount", 1.0)
 	shader.set_shader_parameter("squint", false)
 
 func _process(_delta: float) -> void:
@@ -41,8 +58,6 @@ func _process(_delta: float) -> void:
 		get_tree().quit()
 	if Input.is_action_just_pressed("restart"):
 		get_tree().reload_current_scene()
-	
-	#shader.set_shader_parameter("light_amount", clamp(((global_position.x - 170) / 50) + 0.5, 0, 1))
 
 func _physics_process(delta: float) -> void:
 	var move_dir = Vector2(Input.get_axis("move_left", "move_right"),
@@ -121,6 +136,11 @@ func _physics_process(delta: float) -> void:
 	
 	if dash_cooldown_time > 0:
 		dash_cooldown_time -= delta
+	
+	if iframe_time > 0:
+		iframe_time -= delta
+		if iframe_time <= 0:
+			shader.set_shader_parameter("alpha_amount", 1.0)
 	
 	move_and_slide()
 	
