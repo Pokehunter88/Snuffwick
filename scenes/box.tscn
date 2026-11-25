@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://d0348vvxsec4n" path="res://textures/box.png" id="1_3inec"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_s36qc"]
+
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_bcvot"]
 polygon = PackedVector2Array(16, -16, 16, 16, -16, 16, -16, -16)
 
@@ -10,12 +12,15 @@ size = Vector2(32, 32)
 
 [node name="Box" type="Sprite2D" unique_id=2055934493]
 light_mask = 2
+material = SubResource("CanvasItemMaterial_s36qc")
 texture = ExtResource("1_3inec")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=414743158]
+show_behind_parent = true
 occluder = SubResource("OccluderPolygon2D_bcvot")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1476180840]
+show_behind_parent = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=688237078]
 shape = SubResource("RectangleShape2D_bcvot")

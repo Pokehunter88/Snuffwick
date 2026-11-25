@@ -21,6 +21,7 @@ const FRAME_OFFSETS := {
 func _ready() -> void:
 	generate_occluder()
 	_on_frame_changed()
+	$MainLight.position = FRAME_OFFSETS[animation]
 
 func generate_occluder() -> void:
 	if not sprite_frames.get_frame_texture(animation, frame):
